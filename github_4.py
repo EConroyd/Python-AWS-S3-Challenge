@@ -55,7 +55,7 @@ git = Github("f035bea0c1f10f4e3a90309133798d3b18efe0c4")
 org = git.get_organization("SoundData")
 
 
-conn = tinys3.Connection('AKIAJWWHY6FOILNL7A6Q', 'zIzaABVZSC7sPekXGGoAKW3VR/Vq/2hc8uHAG80b', tls=True)    
+conn = tinys3.Connection('Access Key', 'Access Key', tls=True)    
 f = open("login.txt", "w+")
 
     
