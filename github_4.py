@@ -50,7 +50,7 @@ def send_email(email):
 	s.close()
 
 #main class github oject 
-git = Github("f035bea0c1f10f4e3a90309133798d3b18efe0c4")
+git = Github("O Auth Generated Token Value")
 #get organization from github object 
 org = git.get_organization("SoundData")
 
