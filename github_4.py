@@ -47,7 +47,7 @@ def send_email(email):
 	s = smtplib.SMTP("smtp.gmail.com", 587)
 
 	s.starttls()
-	s.login('emilycon7@gmail.com', 'Run4baby2@')
+	s.login('emilycon7@gmail.com', 'Gmail Password')
 	s.sendmail(me, you, msg.as_string())
 	s.close()
 
