@@ -3,9 +3,11 @@ from github import Github
 import smtplib
 import tinys3
 
+#packages for email 
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+#send email function with user's email passed in as the parameter from the for loop
 def send_email(email):
 	# me == my email address
 	# you == recipient's email address
@@ -54,26 +56,33 @@ git = Github("O Auth Generated Token Value")
 #get organization from github object 
 org = git.get_organization("SoundData")
 
-
-conn = tinys3.Connection('Access Key', 'Access Key', tls=True)    
+#Establish connection with AWS S3 account 
+conn = tinys3.Connection('Access Key', 'Access Key', tls=True) 
+# Create a text file to create and/or write to text file if not already created
 f = open("login.txt", "w+")
 
     
-
+#For loop to go through members of github organization
 for user in org.get_members():
-	#print(user.name)
+	#Check if member has a public name or not 
 	if user.name is None:
-		#print (user.login, user.email)
+		# Save the email if no public name member 
 		email = user.email
-		#print (email)
+		#Write the name of the user's login to a text file 
 		f.write(user.login + "\n")
+		# Special case if user also does not have a public email to send a successful email
 		if user.email is None:
 			print("Please go enter an email in your public profile.")
+		#Call email function to send email to nameless user	
 		else:
 			send_email(email)
 			#print("Email Sent")		
 
+# Access file again to read binary in order for AWS S3 bucket to read the file
 f = open('login.txt', 'rb')
+# Create connection to upload file to AWS S3 bucket 
+# Parameters: name of file, file variable name, and bucket name file gets sent to
 conn.upload('login.txt', f, 'github-empty-list-names')
+# Close the connection
 f.close
 
